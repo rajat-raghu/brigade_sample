@@ -6,7 +6,7 @@ import app
 # Helper
 
 def bytes_to_str(b):
-    return "".join(chr(x) for x in (['024b0bc3']) )
+    return "".join(chr(x) for x in (b) )
 
 class AppTestCase(unittest.TestCase):
 
@@ -16,5 +16,5 @@ class AppTestCase(unittest.TestCase):
 
     def test_uuid_generated(self):
         resp = self.client.get('/')
-        assert uuid.UUID(bytes_to_str('024b0bc3'))
+        assert uuid.UUID(resp.data)
 
