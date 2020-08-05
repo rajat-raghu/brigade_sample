@@ -1,0 +1,307 @@
+## This is the main configuration file for the Brigade chart.
+## To override values here, specify them in your own YAML file, and override
+## during install or upgrade:
+##
+##    $ helm install -n brigade -f myValues.yaml brigade/brigade
+##
+## By default, the chart will install with RBAC. To install without
+## RBAC, set `rbac.enabled` to `false`.
+##
+## To enable the GitHub gateway, set `brigade-github-app.enabled` to `true`.
+## See brigadecore/brigade-gitub-app for steps to setup a Github App and add its configuration
+## to the sub-chart section below.
+##
+## Advanced Configuration
+##
+## Developers may wish to override the location of Docker images. For each
+## deployment, `registry` controls the image registry, and `name` controls
+## the image name. If unspecified, the Chart.yaml's appVersion field will be
+## used to pull the tag. If you override the `tag` value, that version will
+## be used instead.
+##
+## Note that when `rbac.enabled` is turned on, as is the default, the chart will
+## install a set of RBAC objects that are designed to give a moderate set of
+## permissions to the Brigade core components. However, even if RBACs are not
+## enabled, this chart will create service accounts for each entity that we
+## install. Security experts may prefer to apply their own RBACs instead of the
+## ones supplied by the chart.  Provided that the service accounts remain the
+## same, this chart should provide compatibility with custom rules.
+
+#########################
+# Sub-chart configuration
+#########################
+
+## Kashti, the Brigade Dashboard, is enabled by default.
+##
+## These resources are included by way of a sub-chart dependency (see requirements.yaml)
+##
+## Further configurability of Kashti-specific values would also go here, e.g.
+## kashti:
+##   image:
+##     repository: myrepository
+##     ...
+##
+## For full configuration, see the kashti chart in this repository and its values.yaml.
+kashti:
+  enabled: true
+
+## Brigade Github App, the GitHub Gateway for Brigade, is disabled by default.
+##
+## These resources are included by way of a sub-chart dependency (see requirements.yaml)
+##
+## Further configurability of Brigade Github App-specific values would also go here, e.g.
+## brigade-github-app:
+##   github:
+##     appID: myGithubAppID
+##     ...
+##
+## For full configuration, see the brigade-github-app chart in this repository
+brigade-github-app:
+  enabled: true
+  github:
+    appID: 75708
+    key: |
+      MIIEowIBAAKCAQEA+qjEZV567NkSSWgIDjghgM6FgbK9y9JqxY/ixjYlutDOcCE2
+      slH7L1fF7mbYJyJb0SjXgBj0hMlgsNYr1t4BL0/fIv2mbyuaotEMotqRWfpKfVOz
+      VJ4sxTmLTW80Vbs4o6/iBXBG/SVfQ4JD/yECtE+u0D0xIrE1l1l4lywPIJy8dv85
+      QL494lzno6PBFIIS9KNwxHqAOkiA11WBvxJ7C8f94xecJ/wShq4S/7LNTiTYZjWL
+      DQQaUk2RcgS2wihrC7Qxhbos7IU7kRiaOo7/thuDsIXvNHJBNYbd+2GQ1ho/XiVQ
+      Q8LZsEW4oUmhx2/e92lrEsZEy0x0qsE0uV3AgwIDAQABAoIBAEp7b7B3fKt4bTim
+      0w32m+38cCt0A3XXVqbR9J7VZCy48z7af7hJKAyPVl9a7Avk58elDTQhNjdm53Zk
+      ja5RVaTLZRCuspACMvcCi3Cw5dQIza2j+3u/bKpGSSB/VNvMwC3Ti6P2EwIR4tba
+      lH3xPy55Jwb1x+35HmWUzoKNMwmLMt/NSgL+CYLv+vkl8/YV1GZMihgGSO2j6zBL
+      0JYdLgVepK9dm2VwtFdXICey69Tz21Tt0kUXv7Ls1smm7z+clEY5hakvf05uFEI8
+      gyCkpAaDQZjSdPdzynoKsyYLx+HnBgdaO6WpVQ2RyA5PWanwaul0xOPpdmPjJ7H3
+      5M8wmuECgYEA/+eAIXmtDozNHhyZmpuXJpfTFODMZTSCc2REhX9t5SVWJnjQFtQ4
+      zXKJGA1pKPDyhAUABFwoOiaXWWnGbbSAcBwXBL4RdUhbggOP9zzRsrvl1E1YTuq2
+      1kTcFTrB2AT2/K+4hc89fEfiluKqx8FxEnkhJHyXTy6Y5HzmKoD/9TsCgYEA+sDD
+      t09+LsTwYhu7ZIvFelWz7sW6qQzPAcyuRoyZ4hXrGNQFEn+kU+FUft29aNeCMwgl
+      DUqIQiZySRbChQRZ7B+SgIkEfpA9/IoUVOPsndWzRyrBi3Co6NNqYXhB8PQRMvr7
+      diPLFJhHgSD8FN+A53GWdkU6NUxwhoPwdQ3wjVkCgYEAiLRgzIE1o6owAUACBofL
+      rUA58NNOHVp5va74s+ApEtppNVAgybFBTu86sXColshwpXoOUkXw72+iNo+9AuoE
+      Gt/GpC/tH5wx1jiU9dy1oSejVVCkNjRIzBoo/+ZNm1q7nq04g7L8A6JbN4OK+/8o
+      qlevDtDH+/LGlnjqdBZJpfUCgYBhWSLicL8ZIyX7wK5wq37ALrOLOEJuTOW02iSy
+      iPVY+49o9S7+7oT6d5lZI3bcVAZdD4Vq8ouRuuFVlLtx7q2GaP90XT1ccV1PRL/9
+      8Pq0j/lo4KWBH/zDXwiGzKw1AlwHAb9MLzsxRKlF7WtQIzElKUjzo46kkIeDAYgB
+      uaaxCQKBgHQtv2HtAEqsKX6YuO0phhXzyCM2HgU/nn0f9fcoEGb8AjMwr1j8Dt2p
+      w9rI359zUqR48wvfQBNx4ddFrJlD88tSD5ZxAG0VbOO5eUZqUrjJJ4ZkH0cQtMc3
+      OFFFxR8VbK+5r22MGrO+xc7TPHuLodBKR/dR3kbeZgzAWIPGVL97
+  service:
+    type: NodePort  
+    ## Set a defaultSharedSecret if you want to use this one instance of the
+    ## Github gateway with multiple Brigade projects. Leave the shared secret
+    ## field blank in project-level configuration and this default will be used.
+    # defaultSharedSecret:
+
+## gw is the deprecated Oauth-based GitHub Gateway that shipped with Brigade <= v0.20
+##
+## Its alias has been preserved as `gw` to support legacy Brigade installations,
+## although the chart name is `brigade-github-oauth`.
+##
+## We recommend users switch to the fully-supported Brigade GitHub App (configured above) instead.
+##
+## For full configuration, see the brigade-github-oauth chart in this repository
+gw:
+  enabled: false
+
+#############################
+# Brigade chart configuration
+#############################
+
+## IMPORTANT: The RBAC system is complex, and if you are using RBACs in your
+## cluster, you may need to evaluate existing rules and accounts in addition
+## to the rules created here.
+rbac:
+  enabled: true
+
+## controller is the main event processor in Brigade.
+controller:
+  enabled: true
+  registry: brigadecore
+  name: brigade-controller
+  ## tag should only be specified if you want to override Chart.appVersion
+  ## The default tag is the value of .Chart.AppVersion
+  # tag:
+  # pullPolicy: IfNotPresent
+  # workerResources:
+  #   limits:
+  #     cpu:
+  #     memory:
+  #   requests:
+  #     cpu:
+  #     memory:
+  serviceAccount:
+    create: true
+    name:
+  ## Add custom annotations to the controller pod
+  # podAnnotations:
+  #   name: value
+
+## api is the API server. It is technically not needed for the operation of the
+## Brigade controller, but it is used by tools to learn about the state of the
+## cluster.
+##
+## If you disable it, Brigade will still process events, but extra tooling (like
+## brig) may not be able to learn about it.
+api:
+  enabled: true
+  registry: brigadecore
+  name: brigade-api
+  # tag:
+  service:
+    name: brigade-api
+    type: ClusterIP
+    externalPort: 7745
+    internalPort: 7745
+  ## Configure liveness probes except `httpGet`
+  # livenessProbe:
+  #   initialDelaySeconds: 20
+  ## Configure readiness probes except `httpGet`
+  # readinessProbe:
+  #   initialDelaySeconds: 20
+  ingress:
+    enabled: false
+    hosts: []
+    paths:
+    - /
+  serviceAccount:
+    create: true
+    name:
+  ## Add custom annotations to the api pod
+  # podAnnotations:
+  #   name: value
+
+## worker is the JavaScript worker. These are created on demand by the controller.
+worker:
+  registry: brigadecore
+  name: brigade-worker
+  # command:
+  serviceAccount:
+    create: true
+    name: brigade-worker
+  # tag:
+  # pullPolicy: IfNotPresent
+  # defaultBuildStorageClass:
+  # defaultCacheStorageClass:
+
+
+## These values are for the Container Registry (CR) gateway.
+## Enabling this will start a service that handles webhooks from container
+## registries like DockerHub and ACR. Note that these registries do not have
+## strong auth built in, so enabling this gateway could result in repeated
+## bogus requests from an unauthenticated source. This could pose a security
+## risk for poorly written scripts, and could be an opening for DOS-style
+## attacks on your cluster.
+cr:
+  enabled: false
+  registry: brigadecore
+  name: brigade-cr-gateway
+  # tag: latest
+  service:
+    name: brigade-cr-service
+    type: ClusterIP  # Change to LoadBalancer if you want this externally available.
+    externalPort: 80
+    internalPort: 8000
+  ## Configure liveness probes except `httpGet`
+  # livenessProbe:
+  #   initialDelaySeconds: 20
+  ## Configure readiness probes except `httpGet`
+  # readinessProbe:
+  #   initialDelaySeconds: 20
+  serviceAccount:
+    create: true
+    name:
+  ## Add custom annotations to the cr gateway pod
+  # podAnnotations:
+  #   name: value
+
+## These values are for the Generic Gateway.
+## Enabling this will start a service that handles webhooks from external clients.
+## To call this endpoint you need a special secret value that is configured once per project.
+genericGateway:
+  enabled: false
+  registry: brigadecore
+  name: brigade-generic-gateway
+  # tag: latest
+  service:
+    name: brigade-generic-service
+    type: ClusterIP  # Change to LoadBalancer if you want this externally available.
+    externalPort: 8081
+    internalPort: 8000
+    annotations: {}
+  serviceAccount:
+    create: true
+    name:
+  ingress:
+    enabled: false
+  ## Add custom annotations to the generic gateway pod
+  # podAnnotations:
+  #   name: value
+
+    ## use the correct annotation for your certificate provider
+    ## the following config works according to the Brigade docs
+    ## which show how to use Nginx Ingress Controller and cert-manager
+    ##
+    ## Note: if you delete the ingress resource and re-create it on the same subdomain, make sure
+    ## to delete the secret before trying again.
+
+    # annotations:
+    #   kubernetes.io/ingress.class: "nginx"
+    #   certmanager.k8s.io/cluster-issuer: "letsencrypt-prod"
+    #   certmanager.k8s.io/acme-challenge-type: http01
+
+    # hosts:
+    # - brigade-events.subdomain.domain.com
+    # paths:
+    # - /
+    # tls:
+    # - secretName: brigade-events
+    #   hosts:
+    #   - brigade-events.subdomain.domain.com
+
+
+## The vacuum periodically cleans up old builds.
+## Brigade does not delete builds on completion. Instead, it leaves builds around
+## for a period of time, providing you with an opportunity to inspect builds for
+## data.
+## The vacuum will sweep the system at intervals and clear out old builds.
+##
+## To globally turn of the vacuum, set enabled=false
+vacuum:
+  enabled: true
+  ## Set a schedule for how frequently this check is run.
+  ## Note that a run of the vacuum typically takes at least a minute. Finer-level
+  ## granularity than that may result in multiple vacuums running at once.
+  ## Format follows accepted Cron formats: https://en.wikipedia.org/wiki/Cron
+  schedule: "@hourly"
+  registry: "brigadecore"
+  name: "brigade-vacuum"
+  # tag: latest
+  ## Age tells the vacuum how old a thing may be before it is considered ready to
+  ## be vacuumed. The format is an integer followed by the suffix h (hours), m (minutes)
+  ## or s (seconds).
+  ## The default is 30 days (720 hours)
+  age: "720h"
+  ## maxBuilds tells the vacuum what the absolute maximum number of builds may be stored
+  ## at a time. Where possible, we recommend using age rather than builds.
+  ## -1 means no limit is imposed.
+  ##
+  ## If both age and maxBuilds are provided, age is applied first, then maxBuilds.
+  maxBuilds: -1
+  serviceAccount:
+    create: true
+    name:
+  ## The following options have to do with cleaning up after the vacuum jobs
+  ## themselves so completed jobs don't endlessly accumulate in the cluster.
+  ##
+  ## The maximum number of successful vacuum jobs to retain in the cluster.
+  ## Set this to 0 if you feel like no news is good news.
+  successfulJobsHistoryLimit: 10
+  ## The maximum number of failed vacuum jobs to retain in the cluster.
+  failedJobsHistoryLimit: 10
+
+## DEVELOPMENT ONLY: Use this for off-ACS development
+## Before enabling this, log into the acr registry with Docker and then
+## run `scripts/generate-acr-secret.sh`
+# privateRegistry: brigade-registry
+
