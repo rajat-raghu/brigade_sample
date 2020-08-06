@@ -6,5 +6,6 @@ app = Flask(__name__)
 
 @app.route("/")
 def hello():
+    print ("hello")
     return Response(str(uuid.uuid4()), status=200, mimetype='text/plain')
 
